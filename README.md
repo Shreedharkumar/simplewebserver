@@ -1,5 +1,5 @@
 # EX01 Developing a Simple Webserver
-## Date:
+## Date: 11.04.2025
 
 ## AIM:
 To develop a simple webserver to serve html pages and display the list of protocols in TCP/IP Protocol Suite.
@@ -36,10 +36,50 @@ Start the server script and check for errors.
 Open a browser and navigate to http://127.0.0.1:8000 (or the assigned port).
 
 ## PROGRAM:
-
-
+```
+from http.server import HTTPServer, BaseHTTPRequestHandler 
+content="""
+<html>
+    <head>
+        <TITLE> WEB APPLICATION </TITLE>
+    </head>
+    <body>
+        <table border="6" bgcolor="pink">
+        <caption>TCP/IP PROTOCOL SUITE</caption>
+            <tr bgcolor="lightblue">
+                <th>S.no</th> <th>Layer</th> <th>Protocols</th>
+            </tr>
+            <tr>
+                <td>1.</td> <td>Application layer</td> <td>HTTP, FTP, DNS</td>
+            </tr>
+            <tr>
+                <td>2.</td> <td>Transport layer</td> <td>TCP, UDP</td>
+            </tr>
+            <tr>
+                <td>3.</td> <td>Internet layer</td> <td>IPV4/IPV3</td>
+            </tr>
+            <tr>
+                <td>4.</td> <td>Network access layer</td> <td>MAC, Ethernet</td>
+            </tr>
+        </table>
+    </body>
+</html>
+"""
+class myhandler (BaseHTTPRequestHandler):
+     def do_GET(self):
+        print("request received") 
+        self.send_response(200)
+        self.send_header('content-type', 'text/html; charset=utf-8')
+        self.end_headers()
+        self.wfile.write(content.encode())
+server_address = ('', 8000)
+httpd = HTTPServer(server_address,myhandler)
+print("my webserver is running...")
+httpd.serve_forever()
+```
 ## OUTPUT:
-
+![image](https://github.com/user-attachments/assets/6044de56-6377-4ab5-b08f-541ce47d0e96)
+![image](https://github.com/user-attachments/assets/c350e208-e6eb-4ce0-a21a-02c6400f6249)
 
 ## RESULT:
 The program for implementing simple webserver is executed successfully.
